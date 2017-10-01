@@ -38,25 +38,25 @@ var config = {
     },
   },
   blockchainExplorerOpts: {
-    btc: {
+    proc: {
       livenet: {
-        provider: 'insight',
-        url: 'https://insight.bitpay.com:443',
+        provider: 'procsight',
+        url: 'http://localhost:3000',
       },
-      testnet: {
-        provider: 'insight',
-        url: 'https://test-insight.bitpay.com:443',
+//      testnet: {
+//        provider: 'insight',
+//        url: 'https://test-insight.bitpay.com:443',
         // url: 'http://localhost:3001',
         // Multiple servers (in priority order)
         // url: ['http://a.b.c', 'https://test-insight.bitpay.com:443'],
-      },
+//      },
     },
-    bch: {
-      livenet: {
-        provider: 'insight',
-        url: 'https://cashexplorer.bitcoin.com',
-      },
-    },
+//    bch: {
+//      livenet: {
+//        provider: 'insight',
+//        url: 'https://cashexplorer.bitcoin.com',
+//      },
+//    },
   },
   pushNotificationsOpts: {
     templatePath: './lib/templates',

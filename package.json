@@ -12,10 +12,8 @@
     "bitcore",
     "BWS"
   ],
-  "repository": {
-  },
-  "bugs": {
-  },
+  "repository": {},
+  "bugs": {},
   "dependencies": {
     "async": "^0.9.2",
     "proccore-lib": "^0.14.0",

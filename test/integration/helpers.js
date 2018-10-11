@@ -27,6 +27,7 @@ var Storage = require('../../lib/storage');
 var Model = require('../../lib/model');
 var WalletService = require('../../lib/server');
 var TestData = require('../testdata');
+var BigNumber = require('bignumber.js');
 
 var storage, blockchainExplorer;
 
@@ -230,7 +231,7 @@ helpers.toSatoshi = function(btc) {
   if (_.isArray(btc)) {
     return _.map(btc, helpers.toSatoshi);
   } else {
-    return Utils.strip(btc * 1e8);
+    return btc.times('100000000');
   }
 };
 
@@ -251,19 +252,21 @@ helpers._parseAmount = function(str) {
     if (match[1] == 'u') result.confirmations = 0;
     if (_.endsWith(match[1], 'c')) result.confirmations = +match[1].slice(0, -1);
   }
+  
+  var amount = new BigNumber(match[2]);
 
   switch (match[3]) {
     default:
     case 'btc':
-      result.amount = Utils.strip(+match[2] * 1e8);
+      amount = amount.times('100000000');
       break;
     case 'bit':
-      result.amount = Utils.strip(+match[2] * 1e2);
+      amount = amount.times('100');
       break
     case 'sat':
-      result.amount = Utils.strip(+match[2]);
       break;
   };
+  result.amount = amount;
 
   return result;
 };
@@ -374,7 +377,8 @@ helpers.stubHistory = function(txs) {
 helpers.stubFeeLevels = function(levels) {
   blockchainExplorer.estimateFee = function(nbBlocks, cb) {
     var result = _.zipObject(_.map(_.pick(levels, nbBlocks), function(fee, n) {
-      return [+n, fee > 0 ? fee / 1e8 : fee];
+      var fee2 = new BigNumber(fee);
+      return [new BigNumber(n), fee2 > 0 ? fee2.div('100000000') : fee2];
     }));
     return cb(null, result);
   };

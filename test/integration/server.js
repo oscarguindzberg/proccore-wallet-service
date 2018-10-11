@@ -910,9 +910,9 @@ describe('Wallet service', function() {
           var txOpts = {
             outputs: [{
               toAddress: '18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7',
-              amount: 0.1e8,
+              amount: new BigNumber('10000000'),
             }],
-            feePerKb: 100e2,
+            feePerKb: new BigNumber('10000'),
           };
           async.eachSeries(_.range(2), function(i, next) {
             helpers.createAndPublishTx(server, txOpts, TestData.copayers[0].privKey_1H_0, function() {
@@ -974,9 +974,9 @@ describe('Wallet service', function() {
               var txOpts = {
                 outputs: [{
                   toAddress: '18PzpUFkFZE8zKWUPvfykkTxmB9oMR8qP7',
-                  amount: 0.1e8,
+                  amount: new BigNumber('10000000'),
                 }],
-                feePerKb: 100e2,
+                feePerKb: new BigNumber('10000'),
               };
               async.eachSeries(_.range(2), function(i, next) {
                 helpers.createAndPublishTx(server2, txOpts, TestData.copayers[1].privKey_1H_0, function() {
@@ -1653,7 +1653,7 @@ describe('Wallet service', function() {
           should.not.exist(err);
           should.exist(utxos);
           utxos.length.should.equal(2);
-          _.sum(utxos, 'satoshis').should.equal(3 * 1e8);
+          Utils.sum(utxos, 'satoshis').should.equal(3e8);
           server.getMainAddresses({}, function(err, addresses) {
             var utxo = utxos[0];
             var address = _.find(addresses, {

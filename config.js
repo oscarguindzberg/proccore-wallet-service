@@ -41,7 +41,7 @@ var config = {
     proc: {
       livenet: {
         provider: 'procsight',
-        url: 'http://procsight.com:3000',
+        url: 'https://procsight.com',
       },
 //      testnet: {
 //        provider: 'insight',
